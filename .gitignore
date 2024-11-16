@@ -1,0 +1,37 @@
+# Virtual Environment
+env/
+venv/
+
+# Python-specific files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Django-specific files
+db.sqlite3
+.env
+
+# Logs
+*.log
+
+# Operating System files
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# IDE/Editor-specific files
+# VS Code
+.vscode/
+# PyCharm
+.idea/
+
+# Static and Media files
+staticfiles/
+media/
+
+# Dependency files
+pip-log.txt
+pip-delete-this-directory.txt
