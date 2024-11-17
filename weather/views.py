@@ -20,7 +20,7 @@ def home(request):
             'data': data,
             'city' : request.POST.get('city'),
             'weather' : data['weather'][0]['description'],
-            'temperature': round(data['main']['temp'] - 273.15, 0), #rounds is to nearest whole number
+            'temperature': round(data['main']['temp'] - 273.15), #rounds it to the nearest whole number
         }
 
         return render(request, 'home.html', context)

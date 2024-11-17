@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>Wellcome to Weather app
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>weather app</title>
-</head>
-<body>
-    <form method="post"> {%csrf_token %}
-        <input type="text" name="city" placeholder="Enter city" required>
-        <button type="submit">Look Up!</button>
-    </form>
-    {{city}}
-    {{temperature}}
-    {{weather}}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %} weather app {% endblock %}
+{% block head %} <h4 class="text-center mb-4">Wellcome to Weather app</h4> {% endblock %}
+{% block body %}
+ <form method="post" class="d-flex justify-content-center mt-4">
+    {%csrf_token %}
+    <input type="text" name="city" class="form-control w-50 me-2" placeholder="Enter city: e.g. Los Angeles" required>
+    <button type="submit" class="btn btn-primary">Look Up!</button>
+</form><br>
+{% if city %}
+    <div class="d-flex justify-content-center mt-4">
+        <p>Weather results for <strong> {{city}} </strong>: <br>
+        temperature: {{temperature}}°C - ({{weather}})</p>
+    </div>
+{% endif %}
+{% endblock %}
