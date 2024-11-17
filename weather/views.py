@@ -17,9 +17,10 @@ def home(request):
         data = response.json()
 
         context = {
+            'data': data,
             'city' : request.POST.get('city'),
             'weather' : data['weather'][0]['description'],
-            'temperature': data['main']['temp'] - 273.15,
+            'temperature': round(data['main']['temp'] - 273.15, 0), #rounds is to nearest whole number
         }
 
         return render(request, 'home.html', context)
