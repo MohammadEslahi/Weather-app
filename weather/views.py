@@ -18,14 +18,16 @@ def home(request):
         url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}"
         response = requests.get(url)
         data = response.json()
+        if data.get("cod") == 200:
+            context = {
+                'data': data,
+                'city' : request.POST.get('city'),
+                'weather' : data['weather'][0]['description'],
+                'temperature': round(data['main']['temp'] - 273.15), #rounds it to the nearest whole number
+            }
 
-        context = {
-            'data': data,
-            'city' : request.POST.get('city'),
-            'weather' : data['weather'][0]['description'],
-            'temperature': round(data['main']['temp'] - 273.15), #rounds it to the nearest whole number
-        }
-
-        return render(request, 'home.html', context)
+            return render(request, 'home.html', context)
+        else:
+            return render(request, 'home.html', {'error':"Haven't heard of ", 'city':city})
     else:
         return render(request, 'home.html')

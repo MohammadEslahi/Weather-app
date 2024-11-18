@@ -7,10 +7,17 @@
     <input type="text" name="city" class="form-control w-50 me-2" placeholder="Enter city: e.g. Los Angeles" required>
     <button type="submit" class="btn btn-primary">Look Up!</button>
 </form><br>
-{% if city %}
+<!-- a little bit of unnecessary complexity here -->
+{% if city and not error %}
     <div class="d-flex justify-content-center mt-4">
         <p>Weather results for <strong> {{city}} </strong>: <br>
         temperature: {{temperature}}°C - ({{weather}})</p>
     </div>
 {% endif %}
+
+<div class="d-flex justify-content-center mt-4">
+    {% if error %}
+        {{ error }} {{ city }}
+    {% endif %}
+</div>
 {% endblock %}
