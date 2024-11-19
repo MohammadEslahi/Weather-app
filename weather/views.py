@@ -20,7 +20,6 @@ def home(request):
         url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}"
         response = requests.get(url)
         data = response.json()
-        print(unit)
         
         if data.get("cod") == 200:
             if unit == 'C':
@@ -40,6 +39,6 @@ def home(request):
 
             return render(request, 'home.html', context)
         else:
-            return render(request, 'home.html', {'error':"Haven't heard of ", 'city':city})
+            return render(request, 'home.html', {'error':"Haven't heard of ", 'city':city or ''})
     else:
-        return render(request, 'home.html')
+        return render(request, 'home.html', {'city':city or ''})
