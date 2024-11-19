@@ -2,22 +2,34 @@
 {% block title %} weather app {% endblock %}
 {% block head %} <h4 class="text-center mb-4">Wellcome to Weather app</h4> {% endblock %}
 {% block body %}
+
  <form method="post" class="d-flex justify-content-center mt-4">
     {%csrf_token %}
     <input type="text" name="city" class="form-control w-50 me-2" placeholder="Enter city: e.g. Los Angeles" required>
-    <button type="submit" class="btn btn-primary">Look Up!</button>
+
+    <div class="d-flex justify-content-center mt-4">
+        <select name="unit">
+            <option value="C" {% if unit == 'C' %} selected {% endif %}>°C</option>
+            <option value="F" {% if unit == 'F' %} selected {% endif %}>°F</option>
+        </select>
+    </div><br>
+    <div class="d-flex justify-content-center mt-4">
+        <button type="submit" class="btn btn-primary">Look Up!</button>
+    </div>
 </form><br>
-<!-- a little bit of unnecessary complexity here -->
-{% if city and not error %}
+
+
+
+{% if weather %}
     <div class="d-flex justify-content-center mt-4">
         <p>Weather results for <strong> {{city}} </strong>: <br>
-        temperature: {{temperature}}°C - ({{weather}})</p>
+        temperature: {{temperature}} {{unit_symbol}} - ({{weather}})</p>
     </div>
 {% endif %}
 
-<div class="d-flex justify-content-center mt-4">
     {% if error %}
-        {{ error }} {{ city }}
+        <div class="d-flex justify-content-center mt-4">
+            <p>{{ error }} <strong> {{ city }} </strong></p>
+        </div>
     {% endif %}
-</div>
 {% endblock %}
