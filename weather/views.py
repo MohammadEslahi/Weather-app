@@ -20,25 +20,32 @@ def home(request):
         url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}"
         response = requests.get(url)
         data = response.json()
-        
-        if data.get("cod") == 200:
-            if unit == 'C':
-                temperature = round(data['main']['temp'] - 273.15) # rounds it to the nearest whole number
-                unit_symbol = 'C'
-            else:
-                temperature = round((data['main']['temp'] - 273.15)*1.8 +32) # converts to F
-                unit_symbol = 'F'
-            context = {
-                'data': data,
-                'city' : request.POST.get('city'),
-                'weather' : data['weather'][0]['description'],
-                'temperature': temperature,
-                'unit': unit,
-                'unit_symbol' : unit_symbol,
-            }
 
-            return render(request, 'home.html', context)
+        if not api_key:
+            return render(request,'home.html', {'error':"API-key not provided, you may need to add one."})
+        
+        elif not city:
+            return render(request,'home.html',{'error':"We won't know where to look for, if you haven't written a city name :)"})
+        
         else:
-            return render(request, 'home.html', {'error':"Haven't heard of ", 'city':city or ''})
+            if data.get("cod") == 200:
+                if unit == 'C':
+                    temperature = round(data['main']['temp'] - 273.15) # rounds it to the nearest whole number
+                    unit_symbol = 'C'
+                else:
+                    temperature = round((data['main']['temp'] - 273.15)*1.8 +32) # converts to F
+                    unit_symbol = 'F'
+                context = {
+                    'data': data,
+                    'city' : request.POST.get('city'),
+                    'weather' : data['weather'][0]['description'],
+                    'temperature': temperature,
+                    'unit': unit,
+                    'unit_symbol' : unit_symbol,
+                }
+
+                return render(request, 'home.html', context)
+            else:
+                return render(request, 'home.html', {'error':"We looked every single corner, but couldn't find ", 'city':city or ''})
     else:
-        return render(request, 'home.html', {'city':city or ''})
+        return render(request, 'home.html', {'city':city or '','error':error})

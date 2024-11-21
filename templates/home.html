@@ -7,7 +7,7 @@
     {%csrf_token %}
     
     <div class="d-flex justify-content-center mb-3">
-    <input type="text" name="city" class="form-control w-50 me-2" placeholder="Enter city: e.g. Los Angeles" value='{{city}}' required>
+    <input type="text" name="city" class="form-control w-50 me-2" placeholder="Enter city: e.g. Los Angeles" value='{{city}}' >
     <select name="unit" class="form-select w-auto">
         <option value="C" {% if unit == 'C' %} selected {% endif %}>°C</option>
         <option value="F" {% if unit == 'F' %} selected {% endif %}>°F</option>
