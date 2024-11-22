@@ -3,6 +3,7 @@ import requests
 # instead of hardcoding API-key
 import os
 from dotenv import load_dotenv
+from accounts.models import *
 
 load_dotenv()
 
@@ -13,6 +14,16 @@ def home(request):
     error = None
 
     if request.method =='POST':
+
+        # adding favorite cities (checks name of html button)
+        if 'Add city to fav' in request.POST:
+            searched_city = request.POST.get('city') # city that user has searched.
+            City.objects.get_or_create(name=searched_city)
+            request.user.fav_cities.add(City.objects.get(name=searched_city))
+            print(request.user.fav_cities.all())
+            
+            
+
         # second parameter defines the default option
         unit = request.POST.get('unit', 'C')
         city = request.POST.get('city')
@@ -43,7 +54,6 @@ def home(request):
                     'unit': unit,
                     'unit_symbol' : unit_symbol,
                 }
-
                 return render(request, 'home.html', context)
             else:
                 return render(request, 'home.html', {'error':"We looked every single corner, but couldn't find ", 'city':city or ''})
