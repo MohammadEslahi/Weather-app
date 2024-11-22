@@ -17,16 +17,34 @@
     <div class="d-flex justify-content-center">
         <button type="submit" class="btn btn-primary ">Look Up!</button>
     </div>
-</form>
+</form><br>
+
+
 
 
 
 {% if weather %}
     <div class="d-flex justify-content-center mt-4">
         <p>Weather results for <strong> {{city}} </strong>: <br>
-        temperature: {{temperature}} {{unit_symbol}} - ({{weather}})</p>
+        temperature: {{temperature}} {{unit_symbol}} - ({{weather}})</p><br>
+        
     </div>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="city" value="{{city}}">
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" name="Add city to fav" class="btn btn-secondary btn-sm"> Add <strong> {{city}} </strong> to Favorites ☆</button>
+        </div>
+    </form>
 {% endif %}
+
+<div class="d-flex justify-content-center mt-4">
+    Fav cities: 
+    {% for city in request.user.fav_cities.all %}
+        {{city}} |
+    {% endfor %}
+</div>
+
 
     {% if error %}
         <div class="d-flex justify-content-center mt-4">
