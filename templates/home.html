@@ -27,8 +27,9 @@
     <div class="d-flex justify-content-center mt-4">
         <p>Weather results for <strong> {{city}} </strong>: <br>
         temperature: {{temperature}} {{unit_symbol}} - ({{weather}})</p><br>
-        
     </div>
+
+    {% if not is_fav %}
     <form method="post">
         {% csrf_token %}
         <input type="hidden" name="city" value="{{city}}">
@@ -36,10 +37,20 @@
             <button type="submit" name="Add city to fav" class="btn btn-secondary btn-sm"> Add <strong> {{city}} </strong> to Favorites ☆</button>
         </div>
     </form>
-{% endif %}
 
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="city" value="{{city}}">
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" name="remove city from fav" class="btn btn-secondary btn-sm">Remove <strong> {{city}} </strong> from Favorites ★</button>
+            </div>
+        </form>
+    {% endif %}
+
+{% endif %}
 <div class="d-flex justify-content-center mt-4">
-    Fav cities: 
+    Your favorite cities: 
     {% for city in request.user.fav_cities.all %}
         {{city}} |
     {% endfor %}
