@@ -13,24 +13,24 @@ def home(request):
     weather = None
     error = None
 
-    if request.user.fav_cities.filter(name=request.POST.get('city')).exists():
-        is_fav = True
-    else:
-        is_fav = False
-    print(is_fav)
+    if request.user.is_authenticated:
+        if request.user.fav_cities.filter(name=request.POST.get('city')).exists():
+            is_fav = True
+        else:
+            is_fav = False
 
     if request.method =='POST':
-
         # adding favorite cities (checks name of html button)
-        if 'Add city to fav' in request.POST:
-            searched_city = request.POST.get('city') # city that user has searched.
-            City.objects.get_or_create(name=searched_city)
-            request.user.fav_cities.add(City.objects.get(name=searched_city))
-            is_fav = True
-        
-        if 'remove city from fav' in request.POST:
-            request.user.fav_cities.remove(City.objects.get(name=request.POST.get('city')))
-            is_fav = False
+        if request.user.is_authenticated:
+            if 'Add city to fav' in request.POST:
+                searched_city = request.POST.get('city') # city that user has searched.
+                City.objects.get_or_create(name=searched_city)
+                request.user.fav_cities.add(City.objects.get(name=searched_city))
+                is_fav = True
+            
+            if 'remove city from fav' in request.POST:
+                request.user.fav_cities.remove(City.objects.get(name=request.POST.get('city')))
+                is_fav = False
             
             
 
@@ -56,15 +56,25 @@ def home(request):
                 else:
                     temperature = round((data['main']['temp'] - 273.15)*1.8 +32) # converts to F
                     unit_symbol = 'F'
-                context = {
-                    'data': data,
-                    'city' : request.POST.get('city'),
-                    'weather' : data['weather'][0]['description'],
-                    'temperature': temperature,
-                    'unit': unit,
-                    'unit_symbol' : unit_symbol,
-                    'is_fav': is_fav,
-                }
+                if request.user.is_authenticated:
+                    context = {
+                        'data': data,
+                        'city' : request.POST.get('city'),
+                        'weather' : data['weather'][0]['description'],
+                        'temperature': temperature,
+                        'unit': unit,
+                        'unit_symbol' : unit_symbol,
+                        'is_fav': is_fav,
+                    }
+                else:
+                      context = {
+                        'data': data,
+                        'city' : request.POST.get('city'),
+                        'weather' : data['weather'][0]['description'],
+                        'temperature': temperature,
+                        'unit': unit,
+                        'unit_symbol' : unit_symbol,
+                    }
                 return render(request, 'home.html', context)
             else:
                 return render(request, 'home.html', {'error':"We looked every single corner, but couldn't find ", 'city':city or ''})
