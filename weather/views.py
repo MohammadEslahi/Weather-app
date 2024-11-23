@@ -13,6 +13,12 @@ def home(request):
     weather = None
     error = None
 
+    if request.user.fav_cities.filter(name=request.POST.get('city')).exists():
+        is_fav = True
+    else:
+        is_fav = False
+    print(is_fav)
+
     if request.method =='POST':
 
         # adding favorite cities (checks name of html button)
@@ -20,7 +26,11 @@ def home(request):
             searched_city = request.POST.get('city') # city that user has searched.
             City.objects.get_or_create(name=searched_city)
             request.user.fav_cities.add(City.objects.get(name=searched_city))
-            print(request.user.fav_cities.all())
+            is_fav = True
+        
+        if 'remove city from fav' in request.POST:
+            request.user.fav_cities.remove(City.objects.get(name=request.POST.get('city')))
+            is_fav = False
             
             
 
@@ -53,6 +63,7 @@ def home(request):
                     'temperature': temperature,
                     'unit': unit,
                     'unit_symbol' : unit_symbol,
+                    'is_fav': is_fav,
                 }
                 return render(request, 'home.html', context)
             else:
