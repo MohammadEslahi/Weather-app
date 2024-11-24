@@ -53,12 +53,13 @@
 {% endif %}
 
 {% if request.user.is_authenticated %}
-    <div class="d-flex justify-content-center mt-4">
-        Your favorite cities: 
+    <div class="d-flex justify-content-center align-items-center mt-4">
+        <span class="me-2">Your favorite cities:</span>
         {% for city in request.user.fav_cities.all %}
-            <form method="post">
+            <form method="post" class="d-inline-block">
                 {% csrf_token %}
-                <input type="submit" name="city" value="{{city}}">
+                    <input type="hidden" name="city" value="{{city}}">
+                    <button type="submit" class="btn btn-light">{{city}}</button>
             </form>
         {% endfor %}
     </div>
