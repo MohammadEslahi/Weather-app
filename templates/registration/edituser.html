@@ -1,9 +1,29 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div class="container">
     <form method="post">
         {% csrf_token %}
-        {{form}}
-        <button type="submit">Edit account</button>
+        {{form.username.label_tag}}<div class="col-sm-10">{{form.username}}</div><br>
+        {{form.age.label_tag}}<div class="col-sm-10">{{form.age}}</div><br>
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary" type="submit">Save</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+        <br>
+        <!-- displaying all kinds of errors (field, non-field) -->
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul class="error-list">
+            {% for errors in form.errors.values %}
+                {% for error in errors %}
+                    <p><li>{{error}}</li></p>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+        </div>    
     </form>
+</div>
+    
+{% endif %}
 {% endblock %}

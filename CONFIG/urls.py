@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('weather.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('profile/<int:id>', include('accounts.urls')),
 ]

@@ -26,4 +26,9 @@ def editAccount(request, id):
             return redirect('home')
     else:
         form =  CustomUserEditForm(instance = user)
-        return render(request, 'registration/edituser.html', {'form':form})
+    return render(request, 'registration/edituser.html', {'form':form})
+
+
+
+def profile(request, id):
+    pass
