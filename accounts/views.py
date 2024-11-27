@@ -20,7 +20,7 @@ def editAccount(request, id):
         return render(request, 'unauthorized_error.html')
     
     if request.method== "POST":
-        form = CustomUserEditForm(request.POST, instance = user)
+        form = CustomUserEditForm(request.POST, request.FILES, instance = user)
         if form.is_valid():
             form.save()
             return redirect('home')

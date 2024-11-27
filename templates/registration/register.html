@@ -3,11 +3,15 @@
 {% block body %}
 <div class="container">
     <h2>Sign up</h2>
-    <form method="post"> {% csrf_token %}
+    <form method="post" enctype="multipart/form-data"> {% csrf_token %}
+        <!-- form fields may be selected from forms.py fields (nothing beyond that) -->
         {{form.username.label_tag}}<div class="col-sm-10">{{form.username}}</div>
         {{form.age.label_tag}}<small class="form-text text-muted">(optional)</small><div class="col-sm-10">{{form.age}}</div>
         {{form.password1.label_tag}}<div class="col-sm-10">{{form.password1}}</div>
-        {{form.password2.label_tag}}<div class="col-sm-10">{{form.password2}}</div><br>
+        {{form.password2.label_tag}}<div class="col-sm-10">{{form.password2}}</div>
+        {{form.profile_image.label_tag}}<div class="col-sm-10">{{form.profile_image}}</div>
+        <br>
+
         <div class="col-sm-10"><button class="btn btn-primary" type="submit">Register!</button>
         <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a></div>
         
