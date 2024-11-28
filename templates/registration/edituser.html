@@ -5,10 +5,10 @@
 <div class="container">
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% if request.user.profile_iamge %}
-            <img src="{{request.user.profile_image.url}}" style="max-width: 100px;">
+        {% if request.user.profile_image.name == 'profile_image/default_profile_image.jpg' %}
+            <img src="{{'/static/profile_image/default_profile_image.jpg'}}" style="max-width: 100px;">
         {% else %}
-            <img src="{{'/static/images/default_profile_image.jpg'}}" style="max-width: 100px;">
+            <img src="{{'/static/profile_image/default_profile_image.jpg'}}" style="max-width: 100px;">
         {% endif %}
         <br>
         {{form.username.label_tag}}<div class="col-sm-10">{{form.username}}</div><br>

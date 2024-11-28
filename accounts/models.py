@@ -17,7 +17,7 @@ class City(models.Model):
 class CustomUser(AbstractUser):
     age = models.PositiveIntegerField(null=True, blank=True)
     fav_cities = models.ManyToManyField(City, related_name='users', blank=True)
-    profile_image = models.ImageField(upload_to='profile_image/', null=True, blank=True, default='images/default_profile_image.jpg')
+    profile_image = models.ImageField(upload_to='profile_image/', null=True, blank=True, default='profile_image/default_profile_image.jpg')
 
     def __str__(self):
         return self.username
