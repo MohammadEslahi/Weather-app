@@ -16,8 +16,12 @@
             <a class="navbar-brand" href="{% url 'home' %}">Home page</a>
             <div>
                 {% if request.user.id %}
-                    <a class="nav-link d-inline" href="#">{{request.user}}</a> |
-                    <form method="post" class="d-inline" action="{% url 'logout' %}">{% csrf_token %}
+                    <!-- <a class="nav-link d-inline" href="#">{{request.user}}</a> | -->
+                    {% if request.user.profile_image.name == 'profile_image/default_profile_image.jpg' %}
+                        <img src="{{'/static/profile_image/default_profile_image.jpg'}}" style="max-width: 40px;">
+                    {% else %}
+                        <img src="{{'/static/profile_image/default_profile_image.jpg'}}" style="max-width: 40px;">
+                    {% endif %}                    <form method="post" class="d-inline" action="{% url 'logout' %}">{% csrf_token %}
                         <Button type='submit' class="btn btn-danger nav-link d-inline">Log out</Button>
                     </form>
                 {% else %}
