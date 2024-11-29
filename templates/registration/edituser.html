@@ -25,7 +25,9 @@
             <label for="{{form.profile_image.id_for_label}}">Change profile image:</label>
             <input type="file" name="{{form.profile_image.name}}" class="form-control form-control-file w-auto" />
         {% else %}
-            {{form.profile_image.label_tag}}<input type="file" name="{{form.profile_image.name}}" class="form-control form-control-file w-auto" /> 
+            <!-- {{form.profile_image.label_tag}}<input type="file" name="{{form.profile_image.name}}" class="form-control form-control-file w-auto" />  -->
+            <label for="{{form.profile_image.id_for_label}}">Profile image <small class="form-text text-muted">(optional)</small>:</label>
+            <input type="file" name="{{form.profile_image.name}}" class="form-control form-control-file w-auto" />
         {% endif %}
         <br>
         <div class="d-flex gap-2">

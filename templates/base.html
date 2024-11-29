@@ -26,11 +26,11 @@
                             {% endif %}
                             <span class="ms-2"> {{ request.user.username }} </span> <!-- Display username -->
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="{% url 'edit_account' request.user.id %}">Edit Account</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" style="margin: 2%; padding: 2%;">
+                            <li style="margin-bottom: 1%;"><a class="btn btn-outline-secondary w-100" href="{% url 'edit_account' request.user.id %}">Edit Account</a></li>
                             <li></li>
                                 <form method="post" class="d-inline" action="{% url 'logout' %}">{% csrf_token %}
-                                    <button type='submit' class="btn btn-danger w-100" style="padding-left: 22%; padding-right: 22%;">Log out</Button>
+                                    <button type='submit' class="btn btn-outline-danger w-100" style="padding-left: 22%; padding-right: 22%;">Log out</Button>
                                 </form>
                             </li>
                         </ul>
