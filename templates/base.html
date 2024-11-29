@@ -23,7 +23,8 @@
                                 <img src="{{'/static/profile_image/default_profile_image.jpg'}}" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                             {% else %}
                                 <img src="{{request.user.profile_image.url}}" class="rounded-circle" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
-                            {% endif %}                    
+                            {% endif %}
+                            <span class="ms-2"> {{ request.user.username }} </span> <!-- Display username -->
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                             <li><a class="dropdown-item" href="{% url 'edit_account' request.user.id %}">Edit Account</a></li>

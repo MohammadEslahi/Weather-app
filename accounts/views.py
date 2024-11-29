@@ -15,20 +15,21 @@ class CustomUserCreationView(CreateView):
 
 def editAccount(request, id):
     user = get_object_or_404(CustomUser, id=id)
+    form = CustomUserEditForm(request.POST, request.FILES, instance = user)
     
     if request.user.id != id:
         return render(request, 'unauthorized_error.html')
     
     if request.method== "POST":
-        form = CustomUserEditForm(request.POST, request.FILES, instance = user)
+        # logic for removing profile image
+        if 'Delete profile image' in request.POST:
+            user.profile_image = 'profile_image/default_profile_image.jpg'
+            user.save()
+            return redirect('edit_account', id)
+        # logic for editing user account
         if form.is_valid():
             form.save()
             return redirect('home')
     else:
         form =  CustomUserEditForm(instance = user)
     return render(request, 'registration/edituser.html', {'form':form})
-
-
-
-def profile(request, id):
-    pass
