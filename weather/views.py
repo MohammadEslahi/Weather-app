@@ -41,7 +41,7 @@ def home(request):
         url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}"
         response = requests.get(url)
         data = response.json()
-
+        print(data)
         if not api_key:
             return render(request,'home.html', {'error':"API-key not provided, you may need to add one."})
         
@@ -52,7 +52,7 @@ def home(request):
             if data.get("cod") == 200:
                 if unit == 'C':
                     temperature = round(data['main']['temp'] - 273.15) # rounds it to the nearest whole number
-                    unit_symbol = 'C'
+                    unit_symbol = '°C'
                 else:
                     temperature = round((data['main']['temp'] - 273.15)*1.8 +32) # converts to F
                     unit_symbol = 'F'
