@@ -11,7 +11,7 @@
     <input type="text" name="city" class="form-control w-50 me-2" placeholder="Enter city: e.g. Los Angeles" value='{{city}}' >
     <select name="unit" class="form-select w-auto">
         <option value="C" {% if unit == 'C' %} selected {% endif %}>°C</option>
-        <option value="F" {% if unit == 'F' %} selected {% endif %}>°F</option>
+        <option value="F" {% if unit == 'F' %} selected {% endif %}> F</option>
     </select>
     </div>
     
@@ -57,10 +57,14 @@
         {% if request.user.fav_cities.all %}
             <span class="me-2">Your favorite cities:</span>
             {% for city in request.user.fav_cities.all %}
-                <form method="post" class="d-inline-block">
+                <form method="post" class="d-inline-block me-1">
                     {% csrf_token %}
                         <input type="hidden" name="city" value="{{city}}">
-                        <button type="submit" class="btn btn-light">{{city}}</button>
+                        {% if weather %}
+                            <button type="submit" class="btn btn-dark" style="background-color:rgba(245, 127, 0, 0.5)">{{city}}</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-dark" style="background-color:rgba(245, 127, 0, 0.4)">{{city}}</button>
+                        {% endif %}
                 </form>
             {% endfor %}
         {% endif %}
