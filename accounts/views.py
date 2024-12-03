@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
+from django.contrib import messages
 from .models import *
 from django.views.generic import CreateView
 from .forms import *
@@ -29,6 +30,7 @@ def editAccount(request, id):
         # logic for editing user account
         if form.is_valid():
             form.save()
+            messages.success(request, 'Account successfully edited!')
             return redirect('home')
     else:
         form =  CustomUserEditForm(instance = user)
