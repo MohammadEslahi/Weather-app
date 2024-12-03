@@ -21,6 +21,10 @@
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
         {{form.username.label_tag}}<div class="col-sm-10">{{form.username}}</div><br>
         {{form.age.label_tag}}<div class="col-sm-10">{{form.age}}</div><br>
+        <!-- {{form.email.label_tag}}<div class="col-sm-10">{{form.email}}</div><br> -->
+         <label for="{{form.email.id_for_label}}">Email address <small class="form-text text-muted">(optional)</small></label>
+         <div class="col-sm-10">{{form.email}}</div><br>
+
         {% if not request.user.profile_image.name == 'profile_image/default_profile_image.jpg' %}
             <label for="{{form.profile_image.id_for_label}}">Change profile image:</label>
             <input type="file" name="{{form.profile_image.name}}" class="form-control form-control-file w-auto" />
