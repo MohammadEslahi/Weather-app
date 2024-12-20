@@ -29,7 +29,7 @@ A simple weather app that allows users to search for weather information by city
   git clone https://github.com/MohammadEslahi/Weather-app
   
 2- Navigate to the project directory:
-  cd weather-app
+  cd Weather-app
   
 3- Create a virtual environment and activate it:
   python -m venv env
