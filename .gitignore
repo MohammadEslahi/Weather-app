@@ -30,7 +30,8 @@ ehthumbs.db
 .idea/
 
 # Static and Media files
-staticfiles/
+/static/
+static/
 media/
 
 # Dependency files
