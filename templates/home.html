@@ -2,6 +2,9 @@
 {% block title %} weather app {% endblock %}
 {% block head %}{% endblock %}
 {% block body %}
+
+
+
     <!-- Home page Background image -->
     <style>
         body {
@@ -14,6 +17,9 @@
         }
     </style>
 
+
+
+    <!-- Form for searching for cities -->
 <h4 class="text-center mb-4">Wellcome to Weather app</h4>
  <form method="post" class="justify-content-center mt-4">
     {%csrf_token %}
@@ -34,13 +40,17 @@
 
 
 
-
+<!-- Showing weather results -->
 {% if weather %}
     <div class="d-flex justify-content-center mt-4">
         <p>Weather results for <strong> {{city}} </strong>: <br>
         temperature: {{temperature}} {{unit_symbol}} - ({{weather}})</p><br>
     </div>
 
+
+
+
+    <!-- Enabling user to add or remove the Favorite status of the city -->
     {% if request.user.is_authenticated %}
         {% if not is_fav %}
             <form method="post">
@@ -63,6 +73,11 @@
     {% endif %}
 {% endif %}
 
+
+
+
+
+<!-- Showing a list of user's favorite cities -->
 {% if request.user.is_authenticated %}
     <div class="d-flex justify-content-center align-items-center mt-4">
         {% if request.user.fav_cities.all %}
@@ -82,12 +97,18 @@
     </div>
 {% endif %}
 
+
+
+<!-- Showing error related to city name -->
     {% if error %}
         <div class="d-flex justify-content-center mt-4">
             <p>{{ error }} <strong> {{ city }} </strong></p>
         </div>
     {% endif %}
 
+
+
+    <!-- Guiding users to sign in to use full features of the app -->
 {% if city and not request.user.is_authenticated and not error %}
     <div class="d-flex justify-content-center mt-4">
         <a class="d-inline mx-2" href="{% url 'registration' %}">Register</a>or
