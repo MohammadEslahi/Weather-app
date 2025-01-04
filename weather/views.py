@@ -5,9 +5,10 @@ import os
 from dotenv import load_dotenv
 from accounts.models import *
 
+
+
+
 load_dotenv()
-
-
 
 def home(request):
     city = ''
