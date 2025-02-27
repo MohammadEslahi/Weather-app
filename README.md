@@ -5,13 +5,12 @@ With a CustomUser model for user authentication and profile customization.
 
 **Features**
 
-- Search for weather by city name
-- Display current weather details (temperature and condition)
-- Save favorite cities for quick access
-- Resgistration and editing account
-- Weather unit selector (°C/F)
-- Users can add profile image
-- Responsive design using Bootstrap
+- Search for weather by city name.
+- Display current weather details (temperature and condition).
+- Save favorite cities for quick access.
+- Resgistration and editing account.
+- Weather unit selector (°C/F).
+- Users can add profile image.
 
 
 **Technologies Used**
