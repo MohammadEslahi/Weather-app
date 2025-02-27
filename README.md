@@ -1,7 +1,7 @@
 **Weather App**
 
-A simple weather app that allows users to search for weather information by city. The app provides current weather details like temperature and weather conditions. Users can also save their favorite cities for quick access to weather updates.
-
+A Django Weather app that allows users to check real-time weather, and bookmark their favorite cities.
+With a CustomUser model for user authentication and profile customization.
 
 **Features**
 
